@@ -1,0 +1,16 @@
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Model\Character\CharacterModel.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\CharacterApplication.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\DAL\Repository\CharacterRepository.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Logic\Security\AudienceValidator.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Model\Friend\FriendModel.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Logic\CharacterLogic.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\DAL\Interface\Repository\ICharacterRepository.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Model\Friend\MyFriendsModel.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Model\Character\CharactersModel.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\DAL\Interface\Context\ICharacterContext.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Model\Friend\MyFriendModel.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\DAL\Context\CharacterContextSQL.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Logic\Resource\CharacterResource.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Factory\CharacterFactory.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Model\Friend\FriendsModel.java
+C:\Users\Joost\Documents\GitHub\Juicedms_Character\src\main\java\com\Herwaarden\Character\Logic\Security\WebSecurityConfig.java
