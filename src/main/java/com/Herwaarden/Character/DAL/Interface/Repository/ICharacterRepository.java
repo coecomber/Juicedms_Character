@@ -6,5 +6,7 @@ import java.util.List;
 public interface ICharacterRepository {
     List<CharacterModel> getMyCharacters(String email);
     CharacterModel getCharacter(int id);
+    CharacterModel getCharacterByName(String name);
     boolean createCharacter(String name, String email);
+    CharacterModel updateCharacter(CharacterModel characterModel);
 }

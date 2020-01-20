@@ -11,8 +11,8 @@ public class CharacterModel {
     private String name;
     private String email;
     private int floor;
-    private BigInteger power;
-    private BigInteger gold;
+    private int power;
+    private int gold;
 
     public CharacterModel() {
     }
@@ -83,19 +83,19 @@ public class CharacterModel {
         this.floor = floor;
     }
 
-    public BigInteger getPower() {
+    public int getPower() {
         return power;
     }
 
-    public void setPower(BigInteger power) {
+    public void setPower(int power) {
         this.power = power;
     }
 
-    public BigInteger getGold() {
+    public int getGold() {
         return gold;
     }
 
-    public void setGold(BigInteger gold) {
+    public void setGold(int gold) {
         this.gold = gold;
     }
 }

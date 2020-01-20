@@ -2,8 +2,12 @@ package com.Herwaarden.Character.Logic.Resource;
 
 import com.Herwaarden.Character.CharacterApplication;
 import com.Herwaarden.Character.Logic.CharacterLogic;
+import com.Herwaarden.Character.Logic.ChatLogic;
 import com.Herwaarden.Character.Model.Character.CharacterModel;
+import com.Herwaarden.Character.Model.Chat.Messages;
 import com.Herwaarden.Character.Model.Friend.MyFriendsModel;
+import com.Herwaarden.Character.Model.FriendChat.MyFriendChatModel;
+import com.Herwaarden.Character.Model.FriendChat.MyFriendChatsModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +31,9 @@ public class CharacterResource {
     private RestTemplate restTemplate;
 
     //Get a list of characters of logged in player.
-    @CrossOrigin(origins = {"http://localhost:9000","http://217.101.44.31:9000"})
-    @GetMapping("/characters/get/{email}")
-    public List<CharacterModel> getCharacter(@PathVariable("email") String email){
+    @CrossOrigin(origins = {"*"})
+    @GetMapping("/public/characters/get/{email}")
+    public List<CharacterModel> getCharacters(@PathVariable("email") String email){
         CharacterLogic characterLogic = new CharacterLogic();
         List<CharacterModel> charactersModels = characterLogic.getMyCharactersByEmail(email);
 
@@ -41,16 +45,25 @@ public class CharacterResource {
     }
 
     //Get a single character by id.
-    @CrossOrigin(origins = {"http://localhost:9000","http://217.101.44.31:9000"})
-    @GetMapping("/character/get/{characterId}")
+    @CrossOrigin(origins = {"*"})
+    @GetMapping("/public/character/{characterId}")
     public CharacterModel getCharacter(@PathVariable("characterId") int characterId){
         CharacterLogic characterLogic = new CharacterLogic();
 
         return characterLogic.getCharacterById(characterId);
     }
 
-    @CrossOrigin(origins = {"http://localhost:9000","http://217.101.44.31:9000"})
-    @PostMapping("/character/add/{name}/{email}")
+    //Get a single character by name.
+    @CrossOrigin(origins = {"*"})
+    @GetMapping("/public/character/getbyname/{characterName}")
+    public CharacterModel getCharacterByName(@PathVariable("characterName") String characterName){
+        CharacterLogic characterLogic = new CharacterLogic();
+
+        return characterLogic.getCharacterByName(characterName);
+    }
+
+    @CrossOrigin(origins = {"*"})
+    @PostMapping("/public/character/add/{name}/{email}")
     public void addCharacter(@PathVariable("name") String name, @PathVariable("email") String email){
         CharacterLogic characterLogic = new CharacterLogic();
         characterLogic.createCharacter(name, email);
@@ -58,9 +71,9 @@ public class CharacterResource {
         System.out.println("Character created with username: " + name + " and email: " + email);
     }
 
-    //Gets friends of a player
-    @CrossOrigin(origins = {"http://localhost:9000","http://217.101.44.31:9000"})
-    @GetMapping("/friend/get/{characterId}")
+    //Get friends of a player
+    @CrossOrigin(origins = {"*"})
+    @GetMapping("/public/friend/get/{characterId}")
     public MyFriendsModel getFriends(@PathVariable("characterId") String characterId){
         CharacterLogic characterLogic = new CharacterLogic();
 
@@ -70,5 +83,29 @@ public class CharacterResource {
         getFriendCount++;
 
         return myFriendsModel;
+    }
+
+    //Get chats of a player
+    @CrossOrigin(origins = {"*"})
+    @GetMapping("/public/friendchat/get/{characterId}")
+    public Messages getFriendChats(@PathVariable("characterId") int characterId){
+        ChatLogic chatLogic = new ChatLogic();
+
+        MyFriendChatsModel myFriendChatsModel = restTemplate.getForObject("http://friendchat-service/api/chats/" + characterId, MyFriendChatsModel.class);
+
+        Messages messages = chatLogic.getChatMessages(myFriendChatsModel);
+
+        for(MyFriendChatModel myFriendChatModel : myFriendChatsModel.getFriendChatList()){
+            System.out.println(myFriendChatModel.getMessage());
+        }
+
+        return messages;
+    }
+
+    @CrossOrigin(origins = {"*"})
+    @PostMapping("/public/character")
+    public CharacterModel updateCharacter(@RequestBody CharacterModel characterModel){
+        CharacterLogic characterLogic = new CharacterLogic();
+        return characterLogic.updateCharacter(characterModel);
     }
 }

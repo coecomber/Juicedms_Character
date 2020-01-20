@@ -48,8 +48,8 @@ public class CharacterContextSQL implements ICharacterContext {
                         characterModel.setName(rs.getString("name"));
                         characterModel.setEmail(rs.getString("email"));
                         characterModel.setFloor(rs.getInt("floor"));
-                        characterModel.setPower(new BigInteger(Integer.valueOf(rs.getInt("power")).toString()));
-                        characterModel.setGold(new BigInteger(Integer.valueOf(rs.getInt("gold")).toString()));
+                        characterModel.setPower(rs.getInt("power"));
+                        characterModel.setGold(rs.getInt("gold"));
 
                         characterModelList.add(characterModel);
                     }
@@ -91,15 +91,55 @@ public class CharacterContextSQL implements ICharacterContext {
                         characterModel.setName(rs.getString("name"));
                         characterModel.setEmail(rs.getString("email"));
                         characterModel.setFloor(rs.getInt("floor"));
-                        characterModel.setPower(new BigInteger(Integer.valueOf(rs.getInt("power")).toString()));
-                        characterModel.setGold(new BigInteger(Integer.valueOf(rs.getInt("gold")).toString()));
+                        characterModel.setPower(rs.getInt("power"));
+                        characterModel.setGold(rs.getInt("gold"));
                     }
                 }
             }
         } catch (Exception e)
         {
             System.err.println(e);
-            System.err.println("Got an exception in CharacterContextSQL.getMyCharacters().");
+            System.err.println("Got an exception in CharacterContextSQL.getCharacter().");
+            System.err.println(e.getMessage());
+        }
+
+        return characterModel;
+    }
+
+    @Override
+    public CharacterModel getCharacterByName(String name) {
+        CharacterModel characterModel = new CharacterModel();
+
+        // create our mysql database connection
+        try (Connection conn = DriverManager.getConnection(sqlUrl, usernameUrl, passwordUrl))
+        {
+            String query = "SELECT * FROM charactertable WHERE name = '" + name + "'";
+
+            // create the java statement
+            try (PreparedStatement cst = conn.prepareCall(query))
+            {
+                try (ResultSet rs = cst.executeQuery(query))
+                {
+                    // iterate through the java resultset
+                    while (rs.next())
+                    {
+                        characterModel.setId(rs.getInt("id"));
+                        characterModel.setActive(rs.getString("active"));
+                        characterModel.setCreatedAt(rs.getString("created"));
+                        characterModel.setLastLoggedInAt(rs.getString("lastLoggedIn"));
+                        characterModel.setGender(rs.getString("gender"));
+                        characterModel.setName(rs.getString("name"));
+                        characterModel.setEmail(rs.getString("email"));
+                        characterModel.setFloor(rs.getInt("floor"));
+                        characterModel.setPower(rs.getInt("power"));
+                        characterModel.setGold(rs.getInt("gold"));
+                    }
+                }
+            }
+        } catch (Exception e)
+        {
+            System.err.println(e);
+            System.err.println("Got an exception in CharacterContextSQL.getCharacterByName().");
             System.err.println(e.getMessage());
         }
 
@@ -126,5 +166,29 @@ public class CharacterContextSQL implements ICharacterContext {
         }
 
         return false;
+    }
+
+    @Override
+    public CharacterModel updateCharacter(CharacterModel characterModel) {
+        try (Connection conn = DriverManager.getConnection(sqlUrl, usernameUrl, passwordUrl))
+        {
+            String query = "UPDATE charactertable SET floor = ?, power = ?, gold = ? WHERE id = ?";
+
+            try(PreparedStatement cst = conn.prepareStatement(query)){
+                cst.setInt(1, characterModel.getFloor());
+                cst.setInt(2, characterModel.getPower());
+                cst.setInt(3, characterModel.getGold());
+                cst.setInt(4, characterModel.getId());
+                cst.executeUpdate();
+                return characterModel;
+            }
+        } catch (Exception e)
+        {
+            System.err.println(e);
+            System.err.println("Got an exception in CharacterContextSQL.updateCharacter().");
+            System.err.println(e.getMessage());
+        }
+
+        return new CharacterModel();
     }
 }
