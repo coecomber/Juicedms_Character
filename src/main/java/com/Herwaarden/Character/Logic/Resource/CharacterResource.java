@@ -5,7 +5,6 @@ import com.Herwaarden.Character.Logic.CharacterLogic;
 import com.Herwaarden.Character.Logic.ChatLogic;
 import com.Herwaarden.Character.Model.Character.CharacterModel;
 import com.Herwaarden.Character.Model.Chat.Messages;
-import com.Herwaarden.Character.Model.Friend.MyFriendsModel;
 import com.Herwaarden.Character.Model.FriendChat.MyFriendChatModel;
 import com.Herwaarden.Character.Model.FriendChat.MyFriendChatsModel;
 import org.slf4j.Logger;
@@ -23,9 +22,6 @@ public class CharacterResource {
     // How to make REST at least level 2:
     // https://martinfowler.com/articles/richardsonMaturityModel.html#level0
 
-    public static int getFriendCount = 1;
-    private static Logger LOG = LoggerFactory
-            .getLogger(CharacterApplication.class);
 
     @Autowired
     private RestTemplate restTemplate;
@@ -69,20 +65,6 @@ public class CharacterResource {
         characterLogic.createCharacter(name, email);
 
         System.out.println("Character created with username: " + name + " and email: " + email);
-    }
-
-    //Get friends of a player
-    @CrossOrigin(origins = {"*"})
-    @GetMapping("/public/friend/get/{characterId}")
-    public MyFriendsModel getFriends(@PathVariable("characterId") String characterId){
-        CharacterLogic characterLogic = new CharacterLogic();
-
-        MyFriendsModel myFriendsModel = restTemplate.getForObject("http://friend-service/api/public/get/" + characterId, MyFriendsModel.class);
-
-        LOG.info("CharacterResource.getFriends() method called for the " + getFriendCount + "'th time.");
-        getFriendCount++;
-
-        return myFriendsModel;
     }
 
     //Get chats of a player

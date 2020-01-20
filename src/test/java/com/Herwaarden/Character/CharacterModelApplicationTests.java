@@ -33,7 +33,7 @@ class CharacterModelApplicationTests {
 	void TestGettingPlayerByEmail() throws Exception {
 		CharacterLogic characterLogic = new CharacterLogic();
 
-		mockMvc.perform(get("/characters/get/joostvherwaarden@hotmail.com")
+		mockMvc.perform(get("/api/public/characters/get/joostvherwaarden@hotmail.com")
 				.contentType("application/json"));
 
 		List<CharacterModel> characterModelList = characterLogic.getMyCharactersByEmail("joostvherwaarden@hotmail.com");
@@ -47,7 +47,7 @@ class CharacterModelApplicationTests {
 	void TestGettingPlayerById() throws Exception {
 		CharacterLogic characterLogic = new CharacterLogic();
 
-		mockMvc.perform(get("/character/get/1")
+		mockMvc.perform(get("/api/public/character/1")
 				.contentType("application/json"));
 
 		CharacterModel characterModel = characterLogic.getCharacterById(1);
@@ -55,15 +55,24 @@ class CharacterModelApplicationTests {
 	}
 
 	@Test
-	void TestGettingFriendsById() {
+	void TestGettingPlayerByName() throws Exception {
 		CharacterLogic characterLogic = new CharacterLogic();
 
-		//MyFriendsModel myFriendsModel = characterLogic.getFriends("1");
+		mockMvc.perform(get("/api/public/character/getbyname/juiced")
+				.contentType("application/json"));
 
-		//Always returns true for now
-//		for(MyFriendModel myfriendModel : myFriendsModel.getFriendModelList()){
-//			assertThat((myfriendModel.getFriendId())).isEqualTo("2");
-//		}
+		CharacterModel characterModel = characterLogic.getCharacterById(1);
+		assertThat(characterModel.getName()).isEqualTo("Juiced");
+	}
+
+	@Test
+	void TestGettingChatsById() throws Exception {
+		CharacterLogic characterLogic = new CharacterLogic();
+
+		mockMvc.perform(get("/api/public/friendchat/get/1")
+				.contentType("application/json"));
+
+		//Always asserts true for now
 		assertThat("1").isEqualTo("1");
 	}
 

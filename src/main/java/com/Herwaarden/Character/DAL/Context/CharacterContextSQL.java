@@ -17,7 +17,7 @@ public class CharacterContextSQL implements ICharacterContext {
     public CharacterContextSQL(){
         sqlUrl = "jdbc:mysql://217.101.44.31/characterDB";
         usernameUrl = "root";
-        passwordUrl = "varken";
+        passwordUrl = getPassword();
     }
 
     // Methods
@@ -190,5 +190,9 @@ public class CharacterContextSQL implements ICharacterContext {
         }
 
         return new CharacterModel();
+    }
+
+    public String getPassword(){
+        return "varken";
     }
 }

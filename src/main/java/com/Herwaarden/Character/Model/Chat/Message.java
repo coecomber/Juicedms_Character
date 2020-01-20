@@ -1,9 +1,9 @@
 package com.Herwaarden.Character.Model.Chat;
 
 public class Message {
-    public String usernameFriend;
-    public String message;
-    public boolean friendIsSender;
+    private String usernameFriend;
+    private String message;
+    private boolean friendIsSender;
 
     public Message() {
     }
