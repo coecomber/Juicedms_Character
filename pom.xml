@@ -122,6 +122,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>2.1.10.RELEASE</version>
 			</plugin>
+
+			
 		</plugins>
 	</build>
 
