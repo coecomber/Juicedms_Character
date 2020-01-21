@@ -6,7 +6,7 @@ LABEL maintainer="joostvherwaarden@hotmail.com"
 VOLUME /tmp
 
 # Make correct port available to the world outside this container
-EXPOSE 8501
+EXPOSE 8500
 
 # The application's jar file
 ARG JAR_FILE=target/*.jar
